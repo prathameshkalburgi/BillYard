@@ -2,6 +2,7 @@ package com.kalburgi.customermanager.customerDetails;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,12 +10,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @Accessors(chain=true)
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Component
 @Table(name="customer_details")
 public class Customer implements Serializable {
 
@@ -37,4 +40,5 @@ public class Customer implements Serializable {
     private String imageUrl;
     @Column(nullable = false , updatable = false)
     private String customerCode;
+
  }

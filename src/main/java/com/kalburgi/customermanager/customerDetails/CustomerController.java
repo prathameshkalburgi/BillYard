@@ -1,6 +1,6 @@
 package com.kalburgi.customermanager.customerDetails;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,16 +9,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    private final CustomerService customerService;
-
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    @Autowired
+    CustomerService customerService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Customer>> getAllCustomer () {
         List<Customer> customer = customerService.findAllCustomers();
         return new ResponseEntity<>(customer, HttpStatus.OK);
+//        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(customer);
     }
 
     @GetMapping("/find/{id}")
@@ -44,9 +42,4 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-//    private String getSiteURL(HttpServletRequest request) {
-//        String siteURL = request.getRequestURL().toString();
-//        return siteURL.replace(request.getServletPath(), "");
-//    }
 }
