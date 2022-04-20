@@ -1,6 +1,7 @@
 package com.kalburgi.customermanager.customerDetails;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+
+    @Autowired
+    private CustomerRepositry customerRepositry;
     private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
@@ -21,10 +25,18 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Customer> getCustomerById (@PathVariable("id") Long id) {
+    @GetMapping("/find")
+    public ResponseEntity<Customer> getCustomerById (@RequestParam(name="id") Long id) {
         Customer customer = customerService.findCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("/email")
+    public ResponseEntity<List<Customer>> findByName(@RequestParam("email") String email){
+//        return customerRepositry.findByName(name);
+        List<Customer> customer = customerRepositry.findByEmail(email);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+
     }
 
     @PostMapping("/add")
@@ -44,9 +56,4 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-//    private String getSiteURL(HttpServletRequest request) {
-//        String siteURL = request.getRequestURL().toString();
-//        return siteURL.replace(request.getServletPath(), "");
-//    }
 }

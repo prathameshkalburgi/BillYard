@@ -13,12 +13,9 @@ repositories {
 }
 
 dependencies {
-	//SMTP mail sender for verification
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	//Input validation
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'junit:junit:4.13.1'
 	runtimeOnly 'mysql:mysql-connector-java'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -4,18 +4,15 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-@Accessors(chain=true)
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Table(name="customer_details")
+@Data
 public class Customer implements Serializable {
 
     @Id
@@ -23,7 +20,6 @@ public class Customer implements Serializable {
     @Column(nullable = false , updatable = false)
     private Long id;
     private String name;
-    @Size(min = 10, max = 10, message = "Phone number need to have only 10 numbers")
     private String phone;
     @Column(name = "created_time" , updatable = false)
     private Date createdTime;
@@ -35,6 +31,4 @@ public class Customer implements Serializable {
     private String verificationCode;
     private String email;
     private String imageUrl;
-    @Column(nullable = false , updatable = false)
-    private String customerCode;
  }
